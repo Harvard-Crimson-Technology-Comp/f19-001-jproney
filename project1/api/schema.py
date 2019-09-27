@@ -33,10 +33,10 @@ class Query(object):
         return PortfolioType.objects.all()
 
     def resolve_all_stocks(self, info, **kwargs):
-        return StockType.objects.all()
+        return StockType.objects.select_related('portfolio').all()
 
     def resolve_all_users(self, info, **kwargs):
-        return UserType.objects.all()
+        return UserType.objects.select_related('portfolio').all()
 
     def resolve_all_purchases(self, info, **kwargs):
-        return PurchaseType.objects.all()
+        return PurchaseType.objects.select_related('user').all()
