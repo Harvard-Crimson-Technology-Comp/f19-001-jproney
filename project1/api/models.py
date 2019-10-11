@@ -3,6 +3,7 @@ from django.db import models
 import random
 from hashlib import md5
 
+
 # a function to generate a new random api token
 def new_api_token(n=8):
     digest = ''
@@ -14,6 +15,7 @@ def new_api_token(n=8):
         digest += md5(s).hexdigest()
 
     return digest
+
 
 # the class containing a portfolio of stocks
 class PortfolioModel(models.Model):
@@ -35,8 +37,11 @@ class StockModel(models.Model):
 class UserModel(models.Model):
     password = models.CharField(max_length=256, null=True)
     username = models.CharField(max_length=256, null=True)
-
+    first_name = models.CharField(max_length=256, null=True)
+    last_name = models.CharField(max_length=256, null=True)
+    api_token = models.CharField(max_length=256, default=new_api_token())
     portfolio = models.OneToOneField(PortfolioModel, on_delete=models.CASCADE)
+
 
 # a class containing what happened in a purchase (who made it, when it was made, what it traded)
 class PurchaseModel(models.Model):
